@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Continuous Height Animation with Landing</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 90vh; /* Full viewport height */
+      display: flex;
+      flex-direction: column; /* Stack the heading and stadium container vertically */
+      justify-content: center; /* Center content vertically */
+      align-items: center; /* Center horizontally */
+      background-color: #f0f0f0; /* Light gray background */
+      overflow: hidden; /* Prevent scrolling */
+      padding: 70px; /* Add padding around the body */
+    }
+
+    h1 {
+      font-size: 36px; /* Font size for the heading */
+      color: #333; /* Dark gray color for the heading */
+      margin-bottom: 20px; /* Space below the heading */
+      text-align: center; /* Center the heading text */
+      opacity: 0; /* Hide the heading initially for the animation */
+      animation: fadeIn 1s forwards 0.5s; /* Fade-in effect for heading */
+    }
+
+    /* Animation for heading */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .stadium-container {
+      display: flex;
+      justify-content: space-evenly; /* Even spacing between shapes */
+      align-items: flex-start; /* Align items to the top */
+      width: 60vw; /* 60% of the viewport width */
+      position: relative;
+    }
+
+    /* Stadium style */
+    .stadium {
+      width: 200px; /* Length of the stadium horizontally */
+      height: 500px; /* Initial height of the stadium */
+      background-color: #b95f15; /* Initial background color */
+      border-radius: 200px; /* Rounded ends for stadium shape */
+      box-shadow: 0 4px 8px rgba(179, 32, 32, 0.2); /* Shadow for effect */
+      margin: 0 5px; /* Horizontal spacing between shapes */
+      opacity: 1; /* Make sure opacity is set to 1 for visible elements */
+      animation: landAnimation 2s cubic-bezier(0.42, 0, 0.58, 1) forwards, heightAnimation 4s ease-in-out infinite; /* Landing and continuous height animation */
+      transition: background-color 0.5s ease, background-image 0.5s ease; /* Smooth transition */
+    }
+
+    /* Keyframe for stadium shapes landing animation */
+    @keyframes landAnimation {
+      0% {
+        transform: translateY(100vh) rotateY(50deg); /* Start below the viewport */
+        opacity: 0;
+      }
+      25% {
+        transform: translateY(-10vh) rotateY(50deg); /* Moving up */
+        opacity: 0.5;
+      }
+      50% {
+        transform: translateY(-5vh) rotateY(180deg); /* Flip mid-air */
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(0) rotateY(0deg); /* Final position */
+        opacity: 1; /* Fully visible */
+        height: 500px; /* Final height of the stadium */
+        margin-top: 0; /* Final spacing between stadiums */
+      }
+    }
+
+    /* Keyframe for continuous height animation */
+    @keyframes heightAnimation {
+      0% {
+        height: 500px;
+      }
+      50% {
+        height: calc(500px + 200px * (random() - 0.5)); /* Random height at halfway */
+      }
+      100% {
+        height: 500px;
+      }
+    }
+
+    /* Step-down effect with dynamic height and spacing */
+    .stadium:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .stadium:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .stadium:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    .stadium:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+    .stadium:nth-child(5) {
+      animation-delay: 0.8s;
+    }
+    .stadium:nth-child(6) {
+      animation-delay: 1s;
+    }
+    .stadium:nth-child(7) {
+      animation-delay: 1.2s;
+    }
+
+    /* Hover effect for stadium */
+    .stadium:hover {
+      transform: rotateY(180deg) scale(1.2);
+      background-color: #796300; /* Darken color on hover */
+      background-image: url('images/new-image.jpg'); /* Background image on hover */
+      background-size: cover; /* Ensure the image covers the element */
+      background-position: center; /* Position the image in the center */
+      transition: background-color 0.5s ease, background-image 0.5s ease; /* Smooth transition */
+      
+    }
+
+    /* Optional: Adding an image inside the stadium */
+    .stadium img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 200px;
+      transition: opacity 1s ease;
+    }
+
+    .stadium:hover img {
+      opacity: 0; /* Hide image on hover */
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Heading -->
+  <h1>Stadium Shapes Showcase</h1>
+
+  <!-- Container for the stadiums -->
+  <div class="stadium-container">
+    <div class="stadium">
+      <img src="images/stadium-image1.jpg" alt="Stadium Image 1" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image2.jpg" alt="Stadium Image 2" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image3.jpg" alt="Stadium Image 3" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image4.jpg" alt="Stadium Image 4" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image5.jpg" alt="Stadium Image 5" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image6.jpg" alt="Stadium Image 6" />
+    </div>
+    <div class="stadium">
+      <img src="images/stadium-image7.jpg" alt="Stadium Image 7" />
+    </div>
+  </div>
+
+  <script>
+    // JavaScript function to generate random values for height
+    function random() {
+      return Math.random(); // Returns a random number between 0 and 1
+    }
+  </script>
+</body>
+</html>
