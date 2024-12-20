@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stadium Animation</title>
+  <title>Smooth Audio Spectrum</title>
   <style>
     /* General Reset */
     * {
@@ -45,24 +45,52 @@
     .stadium-container {
       display: flex;
       justify-content: space-evenly;
-      align-items: flex-start;
+      align-items: center;  /* Center vertically */
       width: 80vw;
       position: relative;
+      perspective: 1000px; /* 3D perspective */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center container */
     }
 
     /* Stadium Styles */
     .stadium {
       width: 150px;
-      height: 300px;
-      background-color: #b95f15;
-      border-radius: 150px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      height: 200px; /* Default height */
+      position: relative;
       margin: 0 10px;
-      animation: landAnimation 2s cubic-bezier(0.42, 0, 0.58, 1) forwards, heightAnimation 4s ease-in-out infinite;
-      transition: transform 0.3s ease, background-color 0.5s ease, background-image 0.5s ease;
+      transform-style: preserve-3d; /* Preserve 3D transformations */
+      animation: landAnimation 3s ease-out forwards; /* Apply landing animation */
+      transform-origin: center bottom;  /* Ensure it grows symmetrically from the center */
     }
 
-    /* Landing Animation */
+    /* Stadium Front and Back Faces */
+    .stadium .front, .stadium .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden; /* Hide the back face when flipped */
+      border-radius: 150px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+    }
+
+    /* Initial Front Face */
+    .stadium .front {
+      background-image: url('images/stadium-image1.jpg');
+    }
+
+    /* Back Face */
+    .stadium .back {
+      background-image: url('images/new-image.jpg'); /* New image after flip */
+      transform: rotateY(180deg); /* Rotate the back face 180 degrees */
+    }
+
+    /* Landing Animation (Plays once on load) */
     @keyframes landAnimation {
       0% {
         transform: translateY(100vh) scale(0.5) rotateY(50deg);
@@ -78,64 +106,111 @@
       }
     }
 
-    /* Continuous Height Animation */
-    @keyframes heightAnimation {
-      0%, 100% {
-        height: 300px;
-        transform: translateY(0); /* Centered */
-      }
-      50% {
-        height: 400px;
-        transform: translateY(-50px); /* Adjust upwards as height increases */
-      }
-
+    /* Hover Effects - Flip and Enlarge */
+    .stadium:hover {
+      animation: flipAndScale 1s ease-in-out forwards; /* Hover flip and scale */
+      z-index: 2; /* Bring the hovered element to the front */
     }
 
-    /* Hover Animation */
-    .stadium:hover {
-      transform: scale(1.2) rotateY(180deg);
-      background-color: #e0286f;
-      background-image: url('images/new-image.jpg');
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: multiply;
-      animation-play-state: paused; /* Pause animations on hover */
+    /* Hover Flip and Scale Animation */
+    @keyframes flipAndScale {
+      0% {
+        transform: rotateY(0deg) scale(1);
+      }
+      100% {
+        transform: rotateY(180deg) scale(2.9); /* Flip and enlarge */
+      }
+    }
+
+    /* Random Height Animation */
+    @keyframes randomHeight {
+      0% {
+        height: 200px;
+      }
+      25% {
+        height: 250px;
+      }
+      50% {
+        height: 300px;
+      }
+      75% {
+        height: 350px;
+      }
+      100% {
+        height: 200px;
+      }
     }
 
     /* Staggered Landing Animation */
     .stadium:nth-child(1) {
-      animation-delay: 0s;
+      animation-delay: 0s, randomHeight 3s infinite; /* Random height animation */
     }
     .stadium:nth-child(2) {
-      animation-delay: 0.2s;
+      animation-delay: 0.2s, randomHeight 3s infinite;
     }
     .stadium:nth-child(3) {
-      animation-delay: 0.4s;
+      animation-delay: 0.4s, randomHeight 3s infinite;
     }
     .stadium:nth-child(4) {
-      animation-delay: 0.6s;
+      animation-delay: 0.6s, randomHeight 3s infinite;
     }
     .stadium:nth-child(5) {
-      animation-delay: 0.8s;
+      animation-delay: 0.8s, randomHeight 3s infinite;
     }
     .stadium:nth-child(6) {
-      animation-delay: 1s;
+      animation-delay: 1s, randomHeight 3s infinite;
     }
     .stadium:nth-child(7) {
-      animation-delay: 1.2s;
+      animation-delay: 1.2s, randomHeight 3s infinite;
     }
   </style>
 </head>
 <body>
-  <h1>Stadium Shapes Showcase</h1>
+  <h1>Smooth Audio Spectrum</h1>
   <div class="stadium-container">
-    <div class="stadium"></div>
-    <div class="stadium"></div>
-    <div class="stadium"></div>
-    <div class="stadium"></div>
-    <div class="stadium"></div>
-    <div class="stadium"></div>
-    <div class="stadium"></div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+    <div class="stadium">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
   </div>
+
+  <script>
+    // Random height and animation timing for each stadium
+    document.querySelectorAll('.stadium').forEach((stadium, index) => {
+      // Randomize height and animation duration
+      const randomHeight = Math.floor(Math.random() * 150) + 200; // Random height between 200px and 350px
+      const randomDuration = Math.floor(Math.random() * 3) + 3; // Random duration between 3s and 6s
+
+      stadium.style.animation = `randomHeight ${randomDuration}s ease-in-out infinite`;
+      stadium.style.height = `${randomHeight}px`; // Set initial height
+
+      // Optionally, you can add more randomness to timing and delay here
+      stadium.style.animationDelay = `${Math.random()}s`; // Random delay for each element
+    });
+  </script>
 </body>
 </html>
